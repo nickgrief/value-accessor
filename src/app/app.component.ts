@@ -1,32 +1,69 @@
 import { Component } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
   template: `
-    <!--The content below is only a placeholder and can be replaced.-->
-    <div style="text-align:center" class="content">
-      <h1>
-        Welcome to {{title}}!
-      </h1>
-      <span style="display: block">{{ title }} app is running!</span>
-      <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+    <div class="wrapper">
+      <header>
+        <h1>Control Value Accessor Example</h1>
+        <p>
+          Control value accessor allows us to create new form components that
+          will be able to be used in Angular's native forms.
+        </p>
+        <p>
+          What we need is to add ControlValueAccessor interface to our custom
+          form component and implement it's methods.
+        </p>
+        <h3>ControlValueAccessor methods:</h3>
+        <ul>
+          <li>writeValue(obj: any): void</li>
+          <li>registerOnChange(fn: any): void</li>
+          <li>registerOnTouched(fn: any): void</li>
+          <li>setDisabledState(isDisabled: boolean)?: void</li>
+        </ul>
+      </header>
+      <main>
+        <h2>The Main Part</h2>
+        <div>
+          <h3>Example</h3>
+          <app-custom-control [formControl]="customForm"></app-custom-control>
+          <button type="button" (click)="onGetValue()">Get value!</button>
+          <p>{{ formInfo }}</p>
+        </div>
+        <div>
+          <h3>Code</h3>
+          <p>You can find all the code in the <a href="">github repo</a>.</p>
+        </div>
+      </main>
+      <footer>
+        <h2>Conclusion</h2>
+        <p>
+          We've got a custom made control component working with angular's form
+          control module! This allows us to make any kind of control type and
+          use it just like other native elements.
+        </p>
+      </footer>
     </div>
-    <h2>Here are some links to help you start: </h2>
-    <ul>
-      <li>
-        <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-      </li>
-      <li>
-        <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-      </li>
-      <li>
-        <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-      </li>
-    </ul>
-    <router-outlet></router-outlet>
   `,
-  styles: []
+  styles: [
+    `
+      .wrapper {
+        width: 720px;
+        margin: auto;
+        font-family: sans;
+        font-size: 20px;
+      }
+    `,
+  ],
 })
 export class AppComponent {
   title = 'value-accessor';
+  formInfo: string | null = '';
+
+  onGetValue() {
+    this.formInfo = this.customForm.value;
+  }
+
+  customForm = new FormControl('');
 }
