@@ -33,7 +33,11 @@ import { FormControl } from '@angular/forms';
         </div>
         <div>
           <h3>Code</h3>
-          <p>You can find all the code in the <a href="">github repo</a>.</p>
+          <p>
+            You can find all the code in the
+            <a href="https://github.com/nickgrief/value-accessor">github repo</a
+            >.
+          </p>
         </div>
       </main>
       <footer>
